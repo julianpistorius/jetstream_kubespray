@@ -310,7 +310,7 @@ resource "openstack_networking_port_v2" "k8s_master_port" {
 }
 
 resource "openstack_compute_instance_v2" "k8s_master" {
-  name              = "${var.cluster_name}-k8s-master-${count.index + 1}"
+  name              = "${var.cluster_name}-${count.index + 1}"
   count             = var.number_of_k8s_masters
   availability_zone = element(var.az_list, count.index)
   image_id          = var.master_root_volume_size_in_gb == 0 ? local.image_to_use_master : null
@@ -440,7 +440,7 @@ resource "openstack_networking_port_v2" "k8s_master_no_etcd_port" {
 }
 
 resource "openstack_compute_instance_v2" "k8s_master_no_etcd" {
-  name              = "${var.cluster_name}-k8s-master-ne-${count.index + 1}"
+  name              = "${var.cluster_name}-ne-${count.index + 1}"
   count             = var.number_of_k8s_masters_no_etcd
   availability_zone = element(var.az_list, count.index)
   image_id          = var.master_root_volume_size_in_gb == 0 ? local.image_to_use_master : null
@@ -566,7 +566,7 @@ resource "openstack_networking_port_v2" "k8s_master_no_floating_ip_port" {
 }
 
 resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip" {
-  name              = "${var.cluster_name}-k8s-master-nf-${count.index + 1}"
+  name              = "${var.cluster_name}-nf-${count.index + 1}"
   count             = var.number_of_k8s_masters_no_floating_ip
   availability_zone = element(var.az_list, count.index)
   image_id          = var.master_root_volume_size_in_gb == 0 ? local.image_to_use_master : null
@@ -626,7 +626,7 @@ resource "openstack_networking_port_v2" "k8s_master_no_floating_ip_no_etcd_port"
 }
 
 resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip_no_etcd" {
-  name              = "${var.cluster_name}-k8s-master-ne-nf-${count.index + 1}"
+  name              = "${var.cluster_name}-ne-nf-${count.index + 1}"
   count             = var.number_of_k8s_masters_no_floating_ip_no_etcd
   availability_zone = element(var.az_list, count.index)
   image_id          = var.master_root_volume_size_in_gb == 0 ? local.image_to_use_master : null
