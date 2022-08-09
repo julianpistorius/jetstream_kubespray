@@ -71,3 +71,6 @@ k8s_allowed_remote_ips = ["0.0.0.0/0"]
 
 # have Kubernetes traffic use the internal IP
 use_access_ip = 0
+
+# Uncomment below and edit to set dns-domain network property
+# network_dns_domain = "<project-ID>.projects.jetstream-cloud.org."
