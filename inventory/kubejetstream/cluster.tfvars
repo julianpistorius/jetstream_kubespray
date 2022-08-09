@@ -52,7 +52,7 @@ flavor_k8s_node = "4"
 #flavor_gfs_node = "<UUID>"
 
 # Jetstream 2
-external_net = "3fe22c05-6206-4db2-9a13-44f04b6796e6"
+external_net = "4367cd20-722f-4dc2-97e8-90d98c25f12e"
 
 # subnet_cidr = "<cidr>"
 
