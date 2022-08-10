@@ -19,7 +19,7 @@ number_of_etcd = 0
 number_of_k8s_masters = 1
 
 # Uncomment and set a previously created IP (or list) for the master nodes
-k8s_master_fips = ["149.xxx.xxx.xxx"]
+# k8s_master_fips = ["149.xxx.xxx.xxx"]
 
 number_of_k8s_masters_no_etcd = 0
 
@@ -73,4 +73,4 @@ k8s_allowed_remote_ips = ["0.0.0.0/0"]
 use_access_ip = 0
 
 # Uncomment below and edit to set dns-domain network property
-# network_dns_domain = "<project-ID>.projects.jetstream-cloud.org."
+# network_dns_domain = "tg-xxxxxxxxx.projects.jetstream-cloud.org."
