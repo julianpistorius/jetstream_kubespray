@@ -74,3 +74,7 @@ use_access_ip = 0
 
 # Uncomment below and edit to set dns-domain network property
 # network_dns_domain = "tg-xxxxxxxxx.projects.jetstream-cloud.org."
+
+# Reuse the auto allocated router, we do not want to waste floating IPs by having un-necessary routers
+# openstack router list, find the ID (first column) of the `auto_allocated_router`
+router_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
