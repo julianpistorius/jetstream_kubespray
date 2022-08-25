@@ -21,7 +21,7 @@ resource "openstack_networking_subnet_v2" "k8s" {
   name            = "${var.cluster_name}-internal-network"
   count           = var.use_neutron
   network_id      = openstack_networking_network_v2.k8s[count.index].id
-  cidr            = var.subnet_cidr
+  subnetpool_id   = var.subnetpool_id
   ip_version      = 4
   dns_nameservers = var.dns_nameservers
 }
