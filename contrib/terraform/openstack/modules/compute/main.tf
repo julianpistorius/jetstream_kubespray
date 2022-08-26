@@ -216,6 +216,9 @@ resource "openstack_compute_instance_v2" "k8s_master" {
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
+  lifecycle {
+    ignore_changes  = [ image_id ]
+  }
 
   dynamic "block_device" {
     for_each = var.master_root_volume_size_in_gb > 0 ? [local.image_to_use_master] : []
@@ -263,6 +266,9 @@ resource "openstack_compute_instance_v2" "k8s_master_no_etcd" {
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
+  lifecycle {
+    ignore_changes  = [ image_id ]
+  }
 
   dynamic "block_device" {
     for_each = var.master_root_volume_size_in_gb > 0 ? [local.image_to_use_master] : []
@@ -351,6 +357,10 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip" {
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
+  lifecycle {
+    ignore_changes  = [ image_id ]
+  }
+
   dynamic "block_device" {
     for_each = var.master_root_volume_size_in_gb > 0 ? [local.image_to_use_master] : []
     content {
@@ -392,6 +402,10 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip_no_etcd" {
   image_id          = var.master_root_volume_size_in_gb == 0 ? local.image_to_use_master : null
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
+
+  lifecycle {
+    ignore_changes  = [ image_id ]
+  }
 
   dynamic "block_device" {
     for_each = var.master_root_volume_size_in_gb > 0 ? [local.image_to_use_master] : []
