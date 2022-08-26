@@ -54,8 +54,6 @@ flavor_k8s_node = "4"
 # Jetstream 2
 external_net = "3fe22c05-6206-4db2-9a13-44f04b6796e6"
 
-# subnet_cidr = "<cidr>"
-
 floatingip_pool = "public"
 
 # list of availability zones available in your OpenStack cluster
@@ -78,3 +76,7 @@ use_access_ip = 0
 # Reuse the auto allocated router, we do not want to waste floating IPs by having un-necessary routers
 # openstack router list, find the ID (first column) of the `auto_allocated_router`
 router_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Default subnetpool ID for JetStream2; Let neutron (openstack) do the CIDR
+# book-keeping for you
+subnetpool_id = "be988956-1bfb-4828-b511-a58229fbd4ac"

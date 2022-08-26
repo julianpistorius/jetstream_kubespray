@@ -12,6 +12,12 @@ variable "dns_nameservers" {
 
 variable "subnet_cidr" {}
 
+variable "subnetpool_id" {
+  description = "Subnetpool ID block."
+  type        = string
+  default     = "be988956-1bfb-4828-b511-a58229fbd4ac"
+}
+
 variable "use_neutron" {}
 
 variable "router_id" {}
