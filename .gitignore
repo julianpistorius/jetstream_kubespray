@@ -18,10 +18,10 @@ vagrant/
 plugins/mitogen
 
 # Ansible inventory
-inventory/*
-!inventory/local
-!inventory/sample
-!inventory/kubejetstream
+# inventory/*
+# !inventory/local
+# !inventory/sample
+# !inventory/kubejetstream
 inventory/*/artifacts/
 
 # Byte-compiled / optimized / DLL files
