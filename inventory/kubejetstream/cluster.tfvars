@@ -39,7 +39,7 @@ number_of_k8s_nodes = 1
 
 number_of_k8s_nodes_no_floating_ip = 0
 
-flavor_k8s_node = "4"
+flavor_k8s_node = "10"
 
 # GlusterFS
 # either 0 or more than one
