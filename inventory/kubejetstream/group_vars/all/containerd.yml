@@ -5,14 +5,16 @@
 # containerd_state_dir: "/run/containerd"
 # containerd_oom_score: 0
 
-# containerd_default_runtime: "runc"
+containerd_default_runtime: "nvidia"
 # containerd_snapshotter: "native"
 
-# containerd_runc_runtime:
-#   name: runc
-#   type: "io.containerd.runc.v2"
-#   engine: ""
-#   root: ""
+containerd_runc_runtime:
+  name: nvidia
+  type: "io.containerd.runc.v2"
+  engine: ""
+  root: ""
+  options:
+      BinaryName : '"/usr/bin/nvidia-container-runtime"'
 
 # containerd_additional_runtimes:
 # Example for Kata Containers as additional runtime:
