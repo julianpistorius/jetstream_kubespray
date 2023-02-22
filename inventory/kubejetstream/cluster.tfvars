@@ -1,17 +1,11 @@
-# your Kubernetes cluster name here
-cluster_name = "i-didnt-read-the-docs"
-
-# list of availability zones available in your OpenStack cluster
-#az_list = ["nova"]
-
 # SSH key to use for access to nodes
 public_key_path = "~/.ssh/id_rsa.pub"
 
 # image to use for bastion, masters, standalone etcd instances, and nodes
-image = "<image name>"
+image = "Featured-Ubuntu20"
 
 # user on the node (ex. core on Container Linux, ubuntu on Ubuntu, etc.)
-ssh_user = "<cloud-provisioned user>"
+ssh_user = "ubuntu"
 
 # 0|1 bastion nodes
 number_of_bastions = 0
@@ -24,42 +18,28 @@ number_of_etcd = 0
 # masters
 number_of_k8s_masters = 1
 
+# Uncomment and set a previously created IP (or list) for the master nodes
+# k8s_master_fips = ["149.xxx.xxx.xxx"]
+
 number_of_k8s_masters_no_etcd = 0
 
 number_of_k8s_masters_no_floating_ip = 0
 
 number_of_k8s_masters_no_floating_ip_no_etcd = 0
 
-flavor_k8s_master = "<UUID>"
+flavor_k8s_master = "4"
 
-k8s_masters = {
-  # "master-1" = {
-  #   "az"          = "nova"
-  #   "flavor"      = "<UUID>"
-  #   "floating_ip" = true
-  #   "etcd" = true
-  # },
-  # "master-2" = {
-  #   "az"          = "nova"
-  #   "flavor"      = "<UUID>"
-  #   "floating_ip" = false
-  #   "etcd" = true
-  # },
-  # "master-3" = {
-  #   "az"          = "nova"
-  #   "flavor"      = "<UUID>"
-  #   "floating_ip" = true
-  #   "etcd" = true
-  # },
-}
-
+master_allowed_ports = [{"protocol" = "tcp", "port_range_min" = 80, "port_range_max" = 80, "remote_ip_prefix" = "0.0.0.0/0"}, {"protocol" = "tcp", "port_range_min" = 443, "port_range_max" = 443, "remote_ip_prefix" = "0.0.0.0/0"}]
 
 # nodes
-number_of_k8s_nodes = 2
+# for debugging purposes we can create nodes with floating ip
+# in production better use nodes with no floating ip
 
-number_of_k8s_nodes_no_floating_ip = 4
+number_of_k8s_nodes = 1
 
-#flavor_k8s_node = "<UUID>"
+number_of_k8s_nodes_no_floating_ip = 0
+
+flavor_k8s_node = "4"
 
 # GlusterFS
 # either 0 or more than one
@@ -71,19 +51,32 @@ number_of_k8s_nodes_no_floating_ip = 4
 #ssh_user_gfs = "ubuntu"
 #flavor_gfs_node = "<UUID>"
 
-# networking
-network_name = "<network>"
+# Jetstream 2
+external_net = "3fe22c05-6206-4db2-9a13-44f04b6796e6"
 
-# Use a existing network with the name of network_name. Set to false to create a network with name of network_name.
-# use_existing_network = true
+floatingip_pool = "public"
 
-external_net = "<UUID>"
-
-subnet_cidr = "<cidr>"
-
-floatingip_pool = "<pool>"
+# list of availability zones available in your OpenStack cluster
+# IU
+az_list = ["nova"]
+az_list_node = ["nova"]
 
 bastion_allowed_remote_ips = ["0.0.0.0/0"]
 
-# Force port security to be null. Some cloud providers do not allow to set port security.
-# force_null_port_security = false
+# if you only access from a subset of IPs, set this accordingly for
+# more security
+k8s_allowed_remote_ips = ["0.0.0.0/0"]
+
+# have Kubernetes traffic use the internal IP
+use_access_ip = 0
+
+# Uncomment below and edit to set dns-domain network property
+# network_dns_domain = "tg-xxxxxxxxx.projects.jetstream-cloud.org."
+
+# Reuse the auto allocated router, we do not want to waste floating IPs by having un-necessary routers
+# openstack router list, find the ID (first column) of the `auto_allocated_router`
+router_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Default subnetpool ID for JetStream2; Let neutron (openstack) do the CIDR
+# book-keeping for you
+subnetpool_id = "be988956-1bfb-4828-b511-a58229fbd4ac"
