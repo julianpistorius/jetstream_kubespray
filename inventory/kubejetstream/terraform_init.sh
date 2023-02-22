@@ -1,1 +1,1 @@
-terraform -chdir="../../contrib/terraform/openstack" init
+terraform init ../../contrib/terraform/openstack
