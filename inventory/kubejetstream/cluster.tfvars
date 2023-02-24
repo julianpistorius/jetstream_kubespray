@@ -71,11 +71,11 @@ k8s_allowed_remote_ips = ["0.0.0.0/0"]
 use_access_ip = 0
 
 # Uncomment below and edit to set dns-domain network property (the initial tg- is not necessary anymore)
-# network_dns_domain = "xxxxxxxxx.projects.jetstream-cloud.org."
+network_dns_domain = "cis230085.projects.jetstream-cloud.org."
 
 # Reuse the auto allocated router, we do not want to waste floating IPs by having un-necessary routers
 # openstack router list, find the ID (first column) of the `auto_allocated_router`
-router_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+router_id = "15cc195f-02d4-4d9b-ae24-5b2e9e52a13a"
 
 # Default subnetpool ID for JetStream2; Let neutron (openstack) do the CIDR
 # book-keeping for you
