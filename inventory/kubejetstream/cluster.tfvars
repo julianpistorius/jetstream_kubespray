@@ -77,6 +77,12 @@ use_access_ip = 0
 # openstack router list, find the ID (first column) of the `auto_allocated_router`
 router_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
+# networking
+network_name = "auto_allocated_network"
+
+# Use a existing network with the name of network_name. Set to false to create a network with name of network_name.
+use_existing_network = true
+
 # Default subnetpool ID for JetStream2; Let neutron (openstack) do the CIDR
 # book-keeping for you
 subnetpool_id = "be988956-1bfb-4828-b511-a58229fbd4ac"
