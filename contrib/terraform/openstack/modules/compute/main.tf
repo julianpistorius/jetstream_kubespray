@@ -228,7 +228,7 @@ locals {
         "image_id"       = node.image_id != null ? node.image_id : local.image_to_use_master,
         "volume_size"    = node.root_volume_size_in_gb != null ? node.root_volume_size_in_gb : var.master_root_volume_size_in_gb,
         "volume_type"    = node.volume_type != null ? node.volume_type : var.master_volume_type,
-        "network_id"     = node.network_id != null ? node.network_id : (var.use_existing_network ? data.openstack_networking_network_v2.k8s_network[0].id : var.network_id)
+        "network_mode"     = "auto"
       }
   }
 }
