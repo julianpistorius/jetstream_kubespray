@@ -317,6 +317,7 @@ resource "openstack_compute_instance_v2" "k8s_master" {
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
   user_data         = data.cloudinit_config.cloudinit.rendered
+  security_groups    = var.port_security_enabled ? local.master_sec_groups : null
 
   lifecycle {
     ignore_changes  = [ image_id ]
