@@ -723,7 +723,7 @@ resource "openstack_compute_instance_v2" "k8s_node" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_node_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
 
@@ -959,10 +959,11 @@ resource "openstack_networking_floatingip_associate_v2" "k8s_master_no_etcd" {
   port_id               = element(openstack_networking_port_v2.k8s_master_no_etcd_port.*.id, count.index)
 }
 
-resource "openstack_networking_floatingip_associate_v2" "k8s_node" {
+resource "openstack_compute_floatingip_associate_v2" "k8s_node" {
   count                 = var.node_root_volume_size_in_gb == 0 ? var.number_of_k8s_nodes : 0
   floating_ip           = var.k8s_node_fips[count.index]
-  port_id               = element(openstack_networking_port_v2.k8s_node_port.*.id, count.index)
+  instance_id = element(openstack_compute_instance_v2.k8s_node.*.id, count.index)
+  wait_until_associated = true
 }
 
 resource "openstack_networking_floatingip_associate_v2" "k8s_nodes" {
