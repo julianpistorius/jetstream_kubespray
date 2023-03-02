@@ -336,7 +336,7 @@ resource "openstack_compute_instance_v2" "k8s_master" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_master_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -940,10 +940,11 @@ resource "openstack_networking_floatingip_associate_v2" "bastion" {
 }
 
 
-resource "openstack_networking_floatingip_associate_v2" "k8s_master" {
+resource "openstack_compute_floatingip_associate_v2" "k8s_master" {
   count                 = var.number_of_k8s_masters
   floating_ip           = var.k8s_master_fips[count.index]
-  port_id               = element(openstack_networking_port_v2.k8s_master_port.*.id, count.index)
+  instance_id = element(openstack_compute_instance_v2.k8s_master.*.id, count.index)
+  wait_until_associated = true
 }
 
 resource "openstack_networking_floatingip_associate_v2" "k8s_masters" {
