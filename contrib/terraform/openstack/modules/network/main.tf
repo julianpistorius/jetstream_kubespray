@@ -10,18 +10,16 @@ data "openstack_networking_router_v2" "k8s" {
   count     = var.use_neutron == 1 && var.router_id != null ? 1 : 0
 }
 
-resource "openstack_networking_network_v2" "k8s" {
+data "openstack_networking_network_v2" "k8s" {
   name                  = var.network_name
-  count                 = var.use_neutron
-  dns_domain            = var.network_dns_domain != null ? var.network_dns_domain : null
-  admin_state_up        = "true"
-  port_security_enabled = var.port_security_enabled
+  count                 = 1
+
 }
 
 resource "openstack_networking_subnet_v2" "k8s" {
   name            = "${var.cluster_name}-internal-network"
   count           = var.use_neutron
-  network_id      = openstack_networking_network_v2.k8s[count.index].id
+  network_id      = data.openstack_networking_network_v2.k8s[count.index].id
   subnetpool_id   = var.subnetpool_id
   ip_version      = 4
   dns_nameservers = var.dns_nameservers
