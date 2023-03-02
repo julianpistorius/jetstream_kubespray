@@ -70,8 +70,8 @@ k8s_allowed_remote_ips = ["0.0.0.0/0"]
 # have Kubernetes traffic use the internal IP
 use_access_ip = 0
 
-# Uncomment below and edit to set dns-domain network property (the initial tg- is not necessary anymore)
-# network_dns_domain = "xxxxxxxxx.projects.jetstream-cloud.org."
+# This is now un-necessary because we use the auto_allocated_network which is preconfigured
+# network_dns_domain = "xxx000000.projects.jetstream-cloud.org."
 
 # Reuse the auto allocated router, we do not want to waste floating IPs by having un-necessary routers
 # openstack router list, find the ID (first column) of the `auto_allocated_router`
