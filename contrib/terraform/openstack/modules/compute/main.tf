@@ -274,7 +274,7 @@ resource "openstack_compute_instance_v2" "bastion" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.bastion_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   metadata = {
@@ -336,7 +336,7 @@ resource "openstack_compute_instance_v2" "k8s_master" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_master_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -400,7 +400,7 @@ resource "openstack_compute_instance_v2" "k8s_masters" {
   }
 
   network {
-    port = openstack_networking_port_v2.k8s_masters_port[each.key].id
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -469,7 +469,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_etcd" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_master_no_etcd_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -533,7 +533,7 @@ resource "openstack_compute_instance_v2" "etcd" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.etcd_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -597,7 +597,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_master_no_floating_ip_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -662,7 +662,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip_no_etcd" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_master_no_floating_ip_no_etcd_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -723,7 +723,7 @@ resource "openstack_compute_instance_v2" "k8s_node" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_node_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
 
@@ -789,7 +789,7 @@ resource "openstack_compute_instance_v2" "k8s_node_no_floating_ip" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.k8s_node_no_floating_ip_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -852,7 +852,7 @@ resource "openstack_compute_instance_v2" "k8s_nodes" {
   }
 
   network {
-    port = openstack_networking_port_v2.k8s_nodes_port[each.key].id
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
@@ -915,7 +915,7 @@ resource "openstack_compute_instance_v2" "glusterfs_node_no_floating_ip" {
   }
 
   network {
-    port = element(openstack_networking_port_v2.glusterfs_node_no_floating_ip_port.*.id, count.index)
+    name = "auto_allocated_network"
   }
 
   dynamic "scheduler_hints" {
