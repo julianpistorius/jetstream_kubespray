@@ -241,12 +241,6 @@ resource "openstack_networking_port_v2" "bastion_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.bastion_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -297,12 +291,6 @@ resource "openstack_networking_port_v2" "k8s_master_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.master_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -366,13 +354,6 @@ resource "openstack_networking_port_v2" "k8s_masters_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.master_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
-
   depends_on = [
     var.network_router_id
   ]
@@ -430,12 +411,6 @@ resource "openstack_networking_port_v2" "k8s_master_no_etcd_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.master_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -499,12 +474,6 @@ resource "openstack_networking_port_v2" "etcd_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.etcd_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -559,12 +528,6 @@ resource "openstack_networking_port_v2" "k8s_master_no_floating_ip_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.master_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -623,12 +586,6 @@ resource "openstack_networking_port_v2" "k8s_master_no_floating_ip_no_etcd_port"
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.master_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -688,12 +645,6 @@ resource "openstack_networking_port_v2" "k8s_node_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.worker_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -754,12 +705,6 @@ resource "openstack_networking_port_v2" "k8s_node_no_floating_ip_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.worker_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -815,12 +760,6 @@ resource "openstack_networking_port_v2" "k8s_nodes_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.worker_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
@@ -882,12 +821,6 @@ resource "openstack_networking_port_v2" "glusterfs_node_no_floating_ip_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.gfs_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
-  dynamic "fixed_ip" {
-    for_each = var.private_subnet_id == "" ? [] : [true]
-    content {
-      subnet_id = var.private_subnet_id
-    }
-  }
 
   depends_on = [
     var.network_router_id
