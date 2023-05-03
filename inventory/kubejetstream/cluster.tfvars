@@ -2,7 +2,7 @@
 public_key_path = "~/.ssh/id_rsa.pub"
 
 # image to use for bastion, masters, standalone etcd instances, and nodes
-image = "Featured-Ubuntu20"
+image = "JS-API-Featured-Ubuntu20-Latest"
 
 # user on the node (ex. core on Container Linux, ubuntu on Ubuntu, etc.)
 ssh_user = "ubuntu"
@@ -52,7 +52,7 @@ flavor_k8s_node = "4"
 #flavor_gfs_node = "<UUID>"
 
 # Jetstream 2
-external_net = "3fe22c05-6206-4db2-9a13-44f04b6796e6"
+external_net = "4367cd20-722f-4dc2-97e8-90d98c25f12e"
 
 floatingip_pool = "public"
 
