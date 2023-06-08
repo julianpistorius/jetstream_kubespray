@@ -77,6 +77,10 @@ network_dns_domain = "cis230085.projects.jetstream-cloud.org."
 # openstack router list, find the ID (first column) of the `auto_allocated_router`
 router_id = "15cc195f-02d4-4d9b-ae24-5b2e9e52a13a"
 
+# Reuse the auto-allocated network
+use_existing_network = true
+network_name = "auto_allocated_network"
+
 # Default subnetpool ID for JetStream2; Let neutron (openstack) do the CIDR
 # book-keeping for you
 subnetpool_id = "be988956-1bfb-4828-b511-a58229fbd4ac"
