@@ -297,6 +297,7 @@ resource "openstack_networking_port_v2" "k8s_master_port" {
   port_security_enabled = var.force_null_port_security ? null : var.port_security_enabled
   security_group_ids    = var.port_security_enabled ? local.master_sec_groups : null
   no_security_groups    = var.port_security_enabled ? null : false
+  dns_name              = "${var.cluster_name}-${count.index + 1}"
   dynamic "fixed_ip" {
     for_each = var.private_subnet_id == "" ? [] : [true]
     content {
