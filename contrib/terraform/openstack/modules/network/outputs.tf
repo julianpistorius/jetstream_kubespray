@@ -3,7 +3,7 @@ output "router_id" {
 }
 
 output "network_id" {
-  value = "bdd21138-b4d2-4e2d-8114-efaf248c3722"
+  value = element(concat(openstack_networking_network_v2.k8s.*.id, [""]),0)
 }
 
 output "router_internal_port_id" {
