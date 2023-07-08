@@ -182,25 +182,25 @@ resource "openstack_compute_servergroup_v2" "k8s_node_additional" {
 locals {
 # master groups
   master_sec_groups = compact([
-    openstack_networking_secgroup_v2.k8s_master.id,
-    openstack_networking_secgroup_v2.k8s.id,
-    var.extra_sec_groups ?openstack_networking_secgroup_v2.k8s_master_extra[0].id : "",
+    openstack_networking_secgroup_v2.k8s_master.name,
+    openstack_networking_secgroup_v2.k8s.name,
+    var.extra_sec_groups ?openstack_networking_secgroup_v2.k8s_master_extra[0].name : "",
   ])
 # worker groups
   worker_sec_groups = compact([
-    openstack_networking_secgroup_v2.k8s.id,
-    openstack_networking_secgroup_v2.worker.id,
-    var.extra_sec_groups ? openstack_networking_secgroup_v2.worker_extra[0].id : "",
+    openstack_networking_secgroup_v2.k8s.name,
+    openstack_networking_secgroup_v2.worker.name,
+    var.extra_sec_groups ? openstack_networking_secgroup_v2.worker_extra[0].name : "",
   ])
 # bastion groups
   bastion_sec_groups = compact(concat([
-    openstack_networking_secgroup_v2.k8s.id,
-    openstack_networking_secgroup_v2.bastion[0].id,
+    openstack_networking_secgroup_v2.k8s.name,
+    openstack_networking_secgroup_v2.bastion[0].name,
   ]))
 # etcd groups
-  etcd_sec_groups = compact([openstack_networking_secgroup_v2.k8s.id])
+  etcd_sec_groups = compact([openstack_networking_secgroup_v2.k8s.name])
 # glusterfs groups
-  gfs_sec_groups = compact([openstack_networking_secgroup_v2.k8s.id])
+  gfs_sec_groups = compact([openstack_networking_secgroup_v2.k8s.name])
 
 # Image uuid
   image_to_use_node = var.image_uuid != "" ? var.image_uuid : data.openstack_images_image_v2.vm_image[0].id
@@ -240,6 +240,7 @@ resource "openstack_compute_instance_v2" "bastion" {
   flavor_id  = var.flavor_bastion
   key_pair   = openstack_compute_keypair_v2.k8s.name
   user_data  = data.cloudinit_config.cloudinit.rendered
+  security_groups = var.port_security_enabled ? local.bastion_sec_groups : null
 
   dynamic "block_device" {
     for_each = var.bastion_root_volume_size_in_gb > 0 ? [local.image_to_use_node] : []
@@ -277,6 +278,7 @@ resource "openstack_compute_instance_v2" "k8s_master" {
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
   user_data         = data.cloudinit_config.cloudinit.rendered
+  security_groups = var.port_security_enabled ? local.master_sec_groups : null
 
   lifecycle {
     ignore_changes  = [ image_id ]
@@ -409,6 +411,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip" {
   image_id          = var.master_root_volume_size_in_gb == 0 ? local.image_to_use_master : null
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
+  security_groups = var.port_security_enabled ? local.master_sec_groups : null
 
   lifecycle {
     ignore_changes  = [ image_id ]
@@ -454,6 +457,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip_no_etcd" {
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
   user_data         = data.cloudinit_config.cloudinit.rendered
+  security_groups = var.port_security_enabled ? local.master_sec_groups : null
 
   lifecycle {
     ignore_changes  = [ image_id ]
@@ -500,6 +504,7 @@ resource "openstack_compute_instance_v2" "k8s_node" {
   flavor_id         = var.flavor_k8s_node
   key_pair          = openstack_compute_keypair_v2.k8s.name
   user_data         = data.cloudinit_config.cloudinit.rendered
+  security_groups = var.port_security_enabled ? local.worker_sec_groups : null
 
   dynamic "block_device" {
     for_each = var.node_root_volume_size_in_gb > 0 ? [local.image_to_use_node] : []
@@ -546,6 +551,7 @@ resource "openstack_compute_instance_v2" "k8s_node_no_floating_ip" {
   flavor_id         = var.flavor_k8s_node
   key_pair          = openstack_compute_keypair_v2.k8s.name
   user_data         = data.cloudinit_config.cloudinit.rendered
+  security_groups = var.port_security_enabled ? local.worker_sec_groups : null
 
   dynamic "block_device" {
     for_each = var.node_root_volume_size_in_gb > 0 ? [local.image_to_use_node] : []
@@ -634,6 +640,7 @@ resource "openstack_compute_instance_v2" "glusterfs_node_no_floating_ip" {
   image_name        = var.gfs_root_volume_size_in_gb == 0 ? local.image_to_use_gfs : null
   flavor_id         = var.flavor_gfs_node
   key_pair          = openstack_compute_keypair_v2.k8s.name
+  security_groups = var.port_security_enabled ? local.worker_sec_groups : null
 
   dynamic "block_device" {
     for_each = var.gfs_root_volume_size_in_gb > 0 ? [local.image_to_use_gfs] : []
