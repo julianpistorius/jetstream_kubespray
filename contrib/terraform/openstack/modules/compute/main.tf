@@ -669,7 +669,7 @@ resource "openstack_compute_instance_v2" "glusterfs_node_no_floating_ip" {
 resource "openstack_compute_floatingip_associate_v2" "bastion" {
   count                 = var.number_of_bastions
   floating_ip           = var.bastion_fips[count.index]
-  instance_id           = element(openstack_compute_instance_v2.bastion_port.*.id, count.index)
+  instance_id           = element(openstack_compute_instance_v2.bastion.*.id, count.index)
   wait_until_associated = true
 }
 
@@ -684,13 +684,6 @@ resource "openstack_compute_floatingip_associate_v2" "k8s_masters" {
   for_each              = var.number_of_k8s_masters == 0 && var.number_of_k8s_masters_no_etcd == 0 && var.number_of_k8s_masters_no_floating_ip == 0 && var.number_of_k8s_masters_no_floating_ip_no_etcd == 0 ? { for key, value in var.k8s_masters : key => value if value.floating_ip } : {}
   floating_ip           = var.k8s_masters_fips[each.key].address
   instance_id           = openstack_compute_instance_v2.k8s_masters[each.key].id
-  wait_until_associated = true
-}
-
-resource "openstack_compute_floatingip_associate_v2" "k8s_master_no_etcd" {
-  count                 = var.master_root_volume_size_in_gb == 0 ? var.number_of_k8s_masters_no_etcd : 0
-  floating_ip           = var.k8s_master_no_etcd_fips[count.index]
-  instance_id           = element(openstack_compute_instance_v2.k8s_master_no_etcd.*.id, count.index)
   wait_until_associated = true
 }
 
