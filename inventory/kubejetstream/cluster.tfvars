@@ -74,8 +74,12 @@ use_access_ip = 0
 # network_dns_domain = "xxx000000.projects.jetstream-cloud.org."
 
 # Reuse the auto allocated router, we do not want to waste floating IPs by having un-necessary routers
-# openstack router list, find the ID (first column) of the `auto_allocated_router`
-router_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# REPLACE with your `auto_allocated_router` ID (use `openstack router list`)
+router_id = "15cc195f-02d4-4d9b-ae24-5b2e9e52a13a"
+
+# Reuse the auto-allocated network
+use_existing_network = true
+network_name = "auto_allocated_network"
 
 # networking
 network_name = "auto_allocated_network"

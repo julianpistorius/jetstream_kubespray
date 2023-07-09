@@ -13,20 +13,4 @@ data "openstack_networking_router_v2" "k8s" {
 data "openstack_networking_network_v2" "k8s" {
   name                  = var.network_name
   count                 = 1
-
-}
-
-resource "openstack_networking_subnet_v2" "k8s" {
-  name            = "${var.cluster_name}-internal-network"
-  count           = var.use_neutron
-  network_id      = data.openstack_networking_network_v2.k8s[count.index].id
-  subnetpool_id   = var.subnetpool_id
-  ip_version      = 4
-  dns_nameservers = var.dns_nameservers
-}
-
-resource "openstack_networking_router_interface_v2" "k8s" {
-  count     = var.use_neutron
-  router_id = "%{if openstack_networking_router_v2.k8s != []}${openstack_networking_router_v2.k8s[count.index].id}%{else}${var.router_id}%{endif}"
-  subnet_id = openstack_networking_subnet_v2.k8s[count.index].id
 }
