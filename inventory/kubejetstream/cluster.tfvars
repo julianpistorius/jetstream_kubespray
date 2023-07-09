@@ -70,9 +70,8 @@ k8s_allowed_remote_ips = ["0.0.0.0/0"]
 # have Kubernetes traffic use the internal IP
 use_access_ip = 0
 
-# Edit to set dns-domain network property (the initial tg- is not necessary anymore)
-# REPLACE with your project ID
-network_dns_domain = "cis230085.projects.jetstream-cloud.org."
+# This is now un-necessary because we use the auto_allocated_network which is preconfigured
+# network_dns_domain = "xxx000000.projects.jetstream-cloud.org."
 
 # Reuse the auto allocated router, we do not want to waste floating IPs by having un-necessary routers
 # REPLACE with your `auto_allocated_router` ID (use `openstack router list`)
@@ -81,6 +80,12 @@ router_id = "15cc195f-02d4-4d9b-ae24-5b2e9e52a13a"
 # Reuse the auto-allocated network
 use_existing_network = true
 network_name = "auto_allocated_network"
+
+# networking
+network_name = "auto_allocated_network"
+
+# Use a existing network with the name of network_name. Set to false to create a network with name of network_name.
+use_existing_network = true
 
 # Default subnetpool ID for JetStream2; Let neutron (openstack) do the CIDR
 # book-keeping for you
