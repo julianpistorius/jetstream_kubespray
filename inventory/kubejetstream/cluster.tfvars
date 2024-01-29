@@ -40,6 +40,7 @@ number_of_k8s_nodes = 1
 number_of_k8s_nodes_no_floating_ip = 0
 
 flavor_k8s_node = "4"
+# supplementary_node_groups = ["gpu-node"] # Uncomment when all nodes will be GPU nodes
 
 # GlusterFS
 # either 0 or more than one
