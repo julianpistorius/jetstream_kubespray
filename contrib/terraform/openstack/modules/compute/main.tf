@@ -596,6 +596,7 @@ resource "openstack_compute_instance_v2" "k8s_nodes" {
   user_data         = each.value.cloudinit != null ? templatefile("${path.module}/templates/cloudinit.yaml.tmpl", {
     extra_partitions = each.value.cloudinit.extra_partitions
   }) : data.cloudinit_config.cloudinit.rendered
+  security_groups = var.port_security_enabled ? local.worker_sec_groups : null
 
   dynamic "block_device" {
     for_each = !local.k8s_nodes_settings[each.key].use_local_disk ? [local.k8s_nodes_settings[each.key].image_id] : []

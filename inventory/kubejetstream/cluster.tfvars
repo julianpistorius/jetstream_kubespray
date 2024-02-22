@@ -41,6 +41,50 @@ number_of_k8s_nodes_no_floating_ip = 0
 
 flavor_k8s_node = "4"
 
+# # Uncomment when all nodes will be GPU nodes
+# # If you wish to use this var for another reason, add the ansible groups as a comma seperated list
+# # E.g "additional-group-1,additional-group2,etc"
+# supplementary_node_groups = "gpu-node"
+
+# BEGIN HYBRID CLUSTER CONFIG
+
+# # Set to true by default, but we make it explicit here
+# port_security_enabled = true
+
+# # Must be uncommented and set to 0 to use the k8s_nodes variable
+# number_of_k8s_nodes = 0
+# number_of_k8s_nodes_no_floating_ip = 0
+
+# # "<cluster-name>-k8s-node-" will be prepended to each key name and used to create the instance name.
+# # E.g the first item below would result in an instanced named "<cluster-name>-k8s-node-nf-cpu-1"
+# # For a full list of options see ./contrib/terraform/openstack/README.md#k8s_nodes
+# k8s_nodes = {
+#   "nf-cpu-1" = {
+#     "az" = "nova"
+#     "flavor": "4"
+#     "floating_ip": false
+#   },
+#   "nf-cpu-2" = {
+#     "az" = "nova"
+#     "flavor": "4"
+#     "floating_ip": false
+#   },
+#   "nf-gpu-1" = {
+#     "az" = "nova"
+#     "flavor": "10"
+#     "floating_ip": false
+#     "extra_groups": "gpu-node"
+#   },
+#   "nf-gpu-2" = {
+#     "az" = "nova"
+#     "flavor": "10"
+#     "floating_ip": false
+#     "extra_groups": "gpu-node"
+#   },
+# }
+
+# END HYBRID CLUSTER CONFIG
+
 # GlusterFS
 # either 0 or more than one
 #number_of_gfs_nodes_no_floating_ip = 0
