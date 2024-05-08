@@ -2,10 +2,10 @@
 public_key_path = "~/.ssh/id_rsa.pub"
 
 # image to use for bastion, masters, standalone etcd instances, and nodes
-image = "Featured-Ubuntu20"
+image = "FlatcarContainerLinux-3815-2-2"
 
 # user on the node (ex. core on Container Linux, ubuntu on Ubuntu, etc.)
-ssh_user = "ubuntu"
+ssh_user = "core"
 
 # 0|1 bastion nodes
 number_of_bastions = 0
